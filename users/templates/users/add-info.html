@@ -1,0 +1,77 @@
+{% extends 'main-template.html' %}
+{% block content %}
+{% include 'main-navbar.html' %}
+
+<section class="container mx-auto py-10">
+<form class="max-w-xl mx-auto px-3 md:px-0" action="{% url 'add-info' %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-4">
+      <label class="block text-gray-700 font-bold mb-2" for="title">
+        Name
+      </label>
+      <input
+        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="title"
+        value="{{profile.name}}"
+        type="text"
+        name="fullname"
+        required
+      />
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-bold mb-2" for="title">
+        Email
+      </label>
+      <input
+        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="title"
+        value="{{profile.email}}"
+        type="email"
+        name="emailaddress"
+        required
+      />
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="title">
+          Short Intro
+        </label>
+        <input
+          class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          id="title"
+          value="{{profile.short_intro}}"
+          type="text"
+          name="shortintro"
+        />
+      </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-bold mb-2" for="description">
+        Bio
+      </label>
+      <textarea
+        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="description"
+        name="bio"
+      >{{profile.bio}}</textarea>
+    </div>
+    <div class="mb-4">
+      <label class="block text-gray-700 font-bold mb-2" for="image">
+        Image
+      </label>
+      <input
+        class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        id="image"
+        type="file"
+        name="profilepicture"
+      />
+    </div>
+    <div class="flex items-center justify-between">
+      <button
+        class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        type="submit"
+      >
+        Submit
+      </button>
+    </div>
+</form>
+</section>
+{% endblock content %}

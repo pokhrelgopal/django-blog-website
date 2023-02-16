@@ -1,0 +1,22 @@
+{% extends 'main-template.html' %}
+{% load static %}
+
+{% block content %}
+{% include 'main-navbar.html' %}
+<section class="container mx-auto">
+    <p class="text-4xl py-10">{{singleBlog.title}}</p>
+    <div class="flex items center justify-between space-x-5">
+        {% if post.featured_image %}
+        <img class="h-64 object-cover" src="{{ post.featured_image.url }}" alt="Featured Image">
+        {% else %}
+        <img class="h-64 object-cover" src="{% static 'images/defaultBlog.png' %}" alt="Featured Image">
+        {% endif %}
+        <div>
+            <p class="text-2xl text-justify">{{singleBlog.content}}</p>
+            <p class="text-lg italic py-5 text-blue-700">{{singleBlog.author}}</p>
+            <p class="text-sm italic text-blue-400">{{singleBlog.created_date}}</p>
+        </div>
+    </div>
+
+</section>
+{% endblock content %}

@@ -1,0 +1,41 @@
+{% extends 'main-template.html' %}
+{% block content %}
+{% include 'main-navbar.html' %}
+<section class="container mx-auto py-20">
+    <form class="max-w-xl mx-auto px-3 md:px-0" action="{% url 'update-blog' id=post.id %}" method="POST"
+        enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="title">
+                Title
+            </label>
+            <input value="{{post.title}}"
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="title" type="text" name="title" required />
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="description">
+                Description
+            </label>
+            <textarea rows="10"
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="description" name="content" required>{{post.content}}</textarea>
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="image">
+                Image
+            </label>
+            <input
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="image" type="file" name="image" />
+        </div>
+        <div class="flex items-center justify-between">
+            <button
+                class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                type="submit">
+                Submit
+            </button>
+        </div>
+    </form>
+</section>
+{% endblock content %}

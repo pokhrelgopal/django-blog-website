@@ -1,0 +1,75 @@
+{% extends 'main-template.html' %}
+{% load static %}
+{% block content %}
+{% include 'main-navbar.html' %}
+
+<section class="container mx-auto py-5 px-2 md:px-0">
+    <div class="my-10">
+        <div class="bg-indigo-800 rounded-xl p-5 flex items-center justify-between">
+           <div class="flex space-x-10">
+            {% if profile.profile_image %}
+            <img class="h-52 w-52 object-cover rounded-full" src="{{profile.profile_image.url}}" alt="">
+            {% else %}
+            <img class="h-52 w-52 object-cover rounded-full" src="{% static 'images/profiles/user-default.png' %}" alt="">
+            {% endif %}
+            <div class="flex flex-col">
+                <span class="text-4xl text-white font-bold">{{profile.name}}</span>
+                <p class="text-white italic">{{profile.short_intro}}</p>
+                <p class="text-lg text-white">Contact me at {{profile.email}}</p>
+            </div>
+           </div>
+            <a class="p-2" href="{% url 'add-info' %}">
+                <button class="py-10 flex items-center justify-end">
+                    <button type="submit" class="bg-white px-3 py-2 rounded text-indigo-800 text-xl">Update
+                        profile</button>
+                </button>
+            </a>
+        </div>
+
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        {% for post in posts %}
+        <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <a href="#">
+                {% if post.featured_image %}
+                <img class="h-64 object-cover" src="{{ post.featured_image.url }}" alt="Featured Image" />
+                {% else %}
+                <img class="h-64 object-cover" src="{% static 'images/defaultBlog.png' %}" alt="Featured Image" />
+                {% endif %}
+            </a>
+            <div class="p-5">
+                <a href="#">
+                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                        {{post.title}}
+                    </h5>
+                </a>
+                <small class="flex items-center justify-between italic text-blue-700">
+                    <p>{{ post.created_date }}</p>
+                    <p><a href="#">By {{ post.author }}</a></p>
+                </small>
+                <p class="mb-3 text-lg text-gray-700 dark:text-gray-400">
+                    {{post.content|slice:"100"}}
+                </p>
+                <div class="flex items-center justify-between">
+                    <a href="{% url 'blog' post.id %}"
+                        class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                        Read more
+                        <svg aria-hidden="true" class="w-4 h-4 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                                clip-rule="evenodd"></path>
+                        </svg>
+                    </a>
+                    <div class="space-x-3">
+                        <a href="{% url 'update-blog' post.id %}" class="text-blue-500">Edit</a>
+                        <a href="{% url 'delete-blog' post.id %}" class="text-red-500">Delete</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+{% endblock content %}
